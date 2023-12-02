@@ -34,7 +34,7 @@ func testarURLs(tempoSQLi float64) {
 		url := scanner.Text()
 		url = url // Remover espaços em branco e quebras de linha
 		if medirTempoRequisicao(url) >= tempoSQLi {
-			fmt.Printf("%sVulnerable: %s%s\n", red, url, reset)
+			fmt.Printf("%sVulnerable: %s%s - {%f}\n", red, url, reset, medirTempoRequisicao(url))
 		} else {
 			fmt.Printf("%sNot Vulnerable: %s%s\n", gray, url, reset)
 		}
@@ -48,7 +48,7 @@ func main() {
 	flag.Parse()
 
 	if tempoSQLi == 0 {
-		fmt.Println("Uso: timesqli -t <tempo>")
+		fmt.Println("Uso: time-check -t <tempo>")
 		os.Exit(1)
 	}
 
