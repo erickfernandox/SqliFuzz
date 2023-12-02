@@ -3,4 +3,4 @@
 
 installing
 
-go install https://github.com/erickfernandox/TimeSQLi@latest
+go install github.com/erickfernandox/TimeSQLi@latest
