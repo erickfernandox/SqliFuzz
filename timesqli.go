@@ -48,7 +48,7 @@ func main() {
 	flag.Parse()
 
 	if tempoSQLi == 0 {
-		fmt.Println("Uso: time-check -t <tempo>")
+		fmt.Println("Uso: timesqli -t <tempo>")
 		os.Exit(1)
 	}
 
