@@ -20,7 +20,7 @@ func medirTempoRequisicao(url string) float64 {
 
 	_, err := http.Get(url)
 	if err != nil {
-		fmt.Printf("Erro na requisição para %s: %s\n", url, err)
+		continue
 	}
 
 	fim := time.Now()
