@@ -55,9 +55,9 @@ func testarURLs(tempoSQLi float64, payloads []string) {
 		resultURLs := replacePayloads(url, tempoSQLi, payloads)
 		
 		for _, url := range resultURLs {
-			tempoRetorno = medirTempoRequisicao(url)
+			tempoRetorno := medirTempoRequisicao(url)
 			if tempoRetorno >= tempoSQLi && tempoRetorno < 30 {
-				tempoRetorno2 = medirTempoRequisicao(url)
+				tempoRetorno2 := medirTempoRequisicao(url)
 				if tempoRetorno2 >= tempoSQLi && tempoRetorno2 < 30{
 					fmt.Printf("%sVulnerable: %s%s - R1: {%f} - R2:{%f}\n", red, url, reset, tempoRetorno,tempoRetorno2)
 				}
