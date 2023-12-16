@@ -40,7 +40,7 @@ func testarURLs(tempoSQLi float64) {
 		url := scanner.Text()
 		url := replaceFuzz(url)
 		url = url // Remover espaços em branco e quebras de linha
-		if medirTempoRequisicao(url) >= tempoSQLi && medirTempoRequisicao(url) <= (tempoSQLi*3)+1 {
+		if medirTempoRequisicao(url) >= tempoSQLi {
 			fmt.Printf("%sVulnerable: %s%s - {%f}\n", red, url, reset, medirTempoRequisicao(url))
 		} else {
 			fmt.Printf("%sNot Vulnerable: %s%s\n", gray, url, reset)
