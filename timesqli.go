@@ -14,19 +14,46 @@ const (
 	red   = "\033[31m"
 	gray  = "\033[90m"
 	reset = "\033[0m"
+	const timeoutSeconds = 30
 )
 
-func medirTempoRequisicao(url string) float64 {
-	inicio := time.Now()
 
-	_, err := http.Get(url)
-	if err != nil {
+func medirTempoRequisicao(url string) float64 {
+	// Criar um canal para sinalizar o término da execução
+	ch := make(chan float64, 1)
+
+	go func() {
+		inicio := time.Now()
+
+		resp, err := http.Get(url)
+		if err != nil {
+			// Sinalizar o término com 0 se houver um erro na requisição
+			ch <- 0
+			return
+		}
+
+		// Fechar o corpo da resposta após a conclusão
+		defer resp.Body.Close()
+
+		fim := time.Now()
+		tempoTotal := fim.Sub(inicio).Seconds()
+
+		// Sinalizar o término com o tempo de resposta se estiver dentro do limite
+		if tempoTotal <= timeoutSeconds {
+			ch <- tempoTotal
+		} else {
+			ch <- 0
+		}
+	}()
+
+	// Aguardar a resposta ou o timeout
+	select {
+	case tempo := <-ch:
+		return tempo
+	case <-time.After(time.Duration(timeoutSeconds) * time.Second):
+		// Timeout atingido
 		return 0
 	}
-
-	fim := time.Now()
-	tempoTotal := fim.Sub(inicio).Seconds()
-	return tempoTotal
 }
 
 func replacePayloads(baseURL string, tempoSQLi float64, payloads []string) []string {
