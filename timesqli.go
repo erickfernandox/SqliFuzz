@@ -31,12 +31,16 @@ func medirTempoRequisicao(url string) float64 {
 	return tempoTotal
 }
 
-func replacePayloads(baseURL string, payloads []string) []string {
+func replacePayloads(baseURL string, tempoSQLi float64, payloads []string) []string {
 	var resultURLs []string
 
+	// Converter tempoSQLi para string
+	tempoSQLiStr := fmt.Sprintf("%f", tempoSQLi)
+
 	for _, payload := range payloads {
-		// Substituir "FUZZ" pelo payload atual
+		// Substituir "FUZZ" pelo payload atual e tempoSQLi
 		targetURL := strings.Replace(baseURL, "FUZZ", payload, -1)
+		targetURL = strings.Replace(targetURL, "tempoSQLi", tempoSQLiStr, -1)
 		resultURLs = append(resultURLs, targetURL)
 	}
 
@@ -49,8 +53,8 @@ func testarURLs(tempoSQLi float64, payloads []string) {
 	for scanner.Scan() {
 		url := strings.TrimSpace(scanner.Text())
 
-		// Substituir "FUZZ" pelos payloads nas URLs
-		resultURLs := replacePayloads(url, payloads)
+		// Substituir "FUZZ" e "tempoSQLi" pelos payloads nas URLs
+		resultURLs := replacePayloads(url, tempoSQLi, payloads)
 
 		for _, url := range resultURLs {
 			if medirTempoRequisicao(url) >= tempoSQLi {
