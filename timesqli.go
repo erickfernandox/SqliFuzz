@@ -21,8 +21,6 @@ func medirTempoRequisicao(url string) float64 {
 
 	_, err := http.Get(url)
 	if err != nil {
-		// Tratar o erro adequadamente
-		fmt.Printf("Erro ao fazer a requisição para %s: %s\n", url, err)
 		return 0
 	}
 
