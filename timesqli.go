@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"strings"
 	"time"
 )
 
@@ -20,7 +21,9 @@ func medirTempoRequisicao(url string) float64 {
 
 	_, err := http.Get(url)
 	if err != nil {
-		continue
+		// Tratar o erro adequadamente
+		fmt.Printf("Erro ao fazer a requisição para %s: %s\n", url, err)
+		return 0
 	}
 
 	fim := time.Now()
@@ -38,8 +41,10 @@ func testarURLs(tempoSQLi float64) {
 	scanner := bufio.NewScanner(os.Stdin)
 	for scanner.Scan() {
 		url := scanner.Text()
-		url := replaceFuzz(url)
-		url = url // Remover espaços em branco e quebras de linha
+		url = replaceFuzz(url)
+		// Remover espaços em branco e quebras de linha
+		url = strings.TrimSpace(url)
+
 		if medirTempoRequisicao(url) >= tempoSQLi {
 			fmt.Printf("%sVulnerable: %s%s - {%f}\n", red, url, reset, medirTempoRequisicao(url))
 		} else {
