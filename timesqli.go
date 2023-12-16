@@ -38,7 +38,7 @@ func testarURLs(tempoSQLi float64) {
 	scanner := bufio.NewScanner(os.Stdin)
 	for scanner.Scan() {
 		url := scanner.Text()
-		replacedURL := replaceFuzz(url)
+		url := replaceFuzz(url)
 		url = url // Remover espaços em branco e quebras de linha
 		if medirTempoRequisicao(url) >= tempoSQLi && medirTempoRequisicao(url) <= (tempoSQLi*3)+1 {
 			fmt.Printf("%sVulnerable: %s%s - {%f}\n", red, url, reset, medirTempoRequisicao(url))
