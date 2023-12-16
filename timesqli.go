@@ -14,7 +14,7 @@ const (
 	red   = "\033[31m"
 	gray  = "\033[90m"
 	reset = "\033[0m"
-	const timeoutSeconds = 30
+	timeoutSeconds = 30
 )
 
 
