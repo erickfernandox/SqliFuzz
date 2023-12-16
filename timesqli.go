@@ -53,10 +53,14 @@ func testarURLs(tempoSQLi float64, payloads []string) {
 
 		// Substituir "FUZZ" e "tempoSQLi" pelos payloads nas URLs
 		resultURLs := replacePayloads(url, tempoSQLi, payloads)
-
+		
 		for _, url := range resultURLs {
-			if medirTempoRequisicao(url) >= tempoSQLi {
-				fmt.Printf("%sVulnerable: %s%s - {%f}\n", red, url, reset, medirTempoRequisicao(url))
+			tempoRetorno = medirTempoRequisicao(url)
+			if tempoRetorno >= tempoSQLi && tempoRetorno < 30 {
+				tempoRetorno2 = medirTempoRequisicao(url)
+				if timeRetorno2 >= tempoSQLi && tempoRetorno < 30{
+					fmt.Printf("%sVulnerable: %s%s - R1: {%f} - R2:{%f}\n", red, url, reset, tempoRetorno,tempoRetorno2)
+				}
 			} else {
 				fmt.Printf("%sNot Vulnerable: %s%s\n", gray, url, reset)
 			}
