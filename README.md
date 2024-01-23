@@ -3,4 +3,4 @@
 
 installing
 
-go install github.com/erickfernandox/TimeSQLi@latest
+go install github.com/erickfernandox/SqliFuzz@latest
